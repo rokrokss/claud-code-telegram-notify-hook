@@ -30,6 +30,10 @@ cd claud-code-telegram-notify-hook
 export CC_HOOK_TELEGRAM_BOT_TOKEN="your_bot_token"
 export CC_HOOK_TELEGRAM_CHAT_ID="your_chat_id"
 
+# Build the Go binary (optional - pre-built binary included)
+cd .claude/hooks
+./build.sh
+
 # Install hooks
 cp -r .claude ~/.claude
 ```
@@ -44,7 +48,7 @@ curl -X POST "https://api.telegram.org/botYOUR_TOKEN/sendMessage" \
 
 ## How It Works
 
-Claude Code triggers hooks → Python script reads event → Sends formatted message to Telegram
+Claude Code triggers hooks → Go binary reads event → Sends formatted message to Telegram
 
 **Message Format:**
 ```
@@ -60,14 +64,20 @@ Claude Code triggers hooks → Python script reads event → Sends formatted mes
 - `Stop` - Operation completion
 - `SubagentStop` - Sub-agent task completion
 
+## Requirements
+
+- Go 1.20+ (for building from source)
+- Or use the pre-built binary included
+
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
 | No notifications | Check token/ID, ensure bot conversation started |
 | Token errors | Copy token exactly, it's case-sensitive |
-| Permission denied | Run `chmod +x ~/.claude/hooks/notification.py` |
+| Permission denied | Run `chmod +x ~/.claude/hooks/notification-bin` |
 | Group chats | Use negative chat ID (e.g., `-1001234567890`) |
+| Build fails | Ensure Go 1.20+ installed, run `go mod tidy` |
 
 ## Security
 
