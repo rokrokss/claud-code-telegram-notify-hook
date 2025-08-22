@@ -42,18 +42,6 @@
           }
         ]
       }
-    ],
-    "SubagentStop": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notification-bin",
-            "timeout": 5
-          }
-        ]
-      }
     ]
   }
 }
